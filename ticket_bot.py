@@ -52,7 +52,7 @@ def get_cfg(key: str, typ: str = "str"):
             return 0
     return val or ""
 
-TOKEN              = "BURAYA_TOKEN_YAZ"  # Token buraya yaz
+TOKEN              = os.getenv("TOKEN", "")  # Render Environment Variables'dan gelir
 GUILD_ID           = get_cfg("GUILD_ID", "int")
 STAFF_ROLE_ID      = get_cfg("STAFF_ROLE_ID", "int")
 TICKET_CATEGORY_ID = get_cfg("TICKET_CATEGORY_ID", "int")
@@ -518,7 +518,7 @@ class TicketControlView(discord.ui.View):
         label="Üye Ekle",
         style=discord.ButtonStyle.secondary,
         custom_id="ticket_uye_ekle",
-        emoji=discord.PartialEmoji(id=EMOJI_UYE_EKLE)
+        emoji=discord.PartialEmoji(name="uye_ekle", id=EMOJI_UYE_EKLE)
     )
     async def uye_ekle(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(description="👥 Tickete eklemek istediğin üyeyi seç:", color=0x5865F2)
@@ -528,7 +528,7 @@ class TicketControlView(discord.ui.View):
         label="Üye Çıkar",
         style=discord.ButtonStyle.secondary,
         custom_id="ticket_uye_cikar",
-        emoji=discord.PartialEmoji(id=EMOJI_HAYIR)
+        emoji=discord.PartialEmoji(name="hayir", id=EMOJI_HAYIR)
     )
     async def uye_cikar(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(description="❌ Ticketten çıkarmak istediğin üyeyi seç:", color=0xFF4444)
@@ -538,7 +538,7 @@ class TicketControlView(discord.ui.View):
         label="Yetkili Çağır",
         style=discord.ButtonStyle.secondary,
         custom_id="ticket_yetkili_cagir",
-        emoji=discord.PartialEmoji(id=EMOJI_YETKILI)
+        emoji=discord.PartialEmoji(name="yetkili", id=EMOJI_YETKILI)
     )
     async def yetkili_cagir(self, interaction: discord.Interaction, button: discord.ui.Button):
         staff_role = interaction.guild.get_role(STAFF_ROLE_ID)
@@ -551,7 +551,7 @@ class TicketControlView(discord.ui.View):
         label="Ticket İsmi Değiştir",
         style=discord.ButtonStyle.secondary,
         custom_id="ticket_isim_degistir",
-        emoji=discord.PartialEmoji(id=EMOJI_PASSED)
+        emoji=discord.PartialEmoji(name="passed", id=EMOJI_PASSED)
     )
     async def isim_degistir(self, interaction: discord.Interaction, button: discord.ui.Button):
         staff_role = interaction.guild.get_role(STAFF_ROLE_ID)
@@ -564,7 +564,7 @@ class TicketControlView(discord.ui.View):
         label="Ticket Kapat",
         style=discord.ButtonStyle.danger,
         custom_id="ticket_kapat",
-        emoji=discord.PartialEmoji(id=EMOJI_HAYIR),
+        emoji=discord.PartialEmoji(name="hayir", id=EMOJI_HAYIR),
         row=2
     )
     async def kapat(self, interaction: discord.Interaction, button: discord.ui.Button):
